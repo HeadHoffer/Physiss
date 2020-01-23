@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <SFML/System.hpp>
 #include "CubeGenerator.h"
 
 int main()
@@ -24,13 +25,11 @@ int main()
 
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
 				arr.push_back(cg.NewCube());
-				//window.draw(cg.NewCube());
 
 		}
 
 		window.clear();
 		window.draw(shape);
-		//window.draw(rec);
 		for (int i = 0; i < (int)arr.size(); ++i) {
 			window.draw(arr[i]);
 		}
