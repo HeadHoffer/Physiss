@@ -9,5 +9,6 @@ public:
 	~CubeGenerator();
 
 	sf::RectangleShape NewCube();
+	sf::RectangleShape NewCube(sf::Vector2i position);
 };
 

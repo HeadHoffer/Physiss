@@ -26,6 +26,11 @@ int main()
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
 				arr.push_back(cg.NewCube());
 
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				sf::Vector2i mPos = sf::Mouse::getPosition(window);
+				arr.push_back(cg.NewCube(mPos));
+			}
+
 		}
 
 		window.clear();
