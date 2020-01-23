@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Collision
 {
@@ -9,18 +10,8 @@ public:
 	~Collision();
 
 
-	bool CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2)
-	{
-		//Check X axis collision
-		bool collisionX = rec1.getPosition().x + rec1.getSize().x >= rec2.getPosition().x && rec2.getPosition().x + rec2.getSize().x >= rec1.getPosition().x;
+	bool CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2);
 
-		//Check Y axis collision
-		bool collisionY = rec1.getPosition().y + rec1.getSize().y >= rec2.getPosition().y && rec2.getPosition().y + rec2.getSize().y >= rec1.getPosition().y;
-
-		// Collision between 2 boxes happen only when both X and Y are true
-
-		return collisionX && collisionY;
-	}
 
 	/*bool CheckCollsion(sf::CircleShape cir, sf::RectangleShape rec)
 	{

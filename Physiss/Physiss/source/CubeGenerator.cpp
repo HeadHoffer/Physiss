@@ -15,6 +15,7 @@ sf::RectangleShape CubeGenerator::NewCube() {
 	sf::RectangleShape rect(sf::Vector2f(30, 30));
 	float rand1 = 0 - rand() / 100;
 	float rand2 = 0 - rand() / 100;
+	/*rect.setPosition(sf::Vector2f(rand1, rand2));*/
 	rect.setOrigin(sf::Vector2f(rand1, rand2));
 	rect.setFillColor(sf::Color::Red);
 	return rect;
@@ -25,6 +26,7 @@ sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position) {
 	std::cout << "X: " << position.x << "\n";
 	std::cout << "Y: " << position.y << "\n";
 	//Position fuckery: window positions are actually negative
+	/*rect.setPosition(sf::Vector2f(0 - position.x + 15, 0 - position.y + 15));*/
 	rect.setOrigin(sf::Vector2f(0 - position.x + 15, 0 - position.y + 15));
 	rect.setFillColor(sf::Color::Cyan);
 	return rect;
