@@ -29,12 +29,14 @@ bool Collision::CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2)
 //circle vs square 
 bool Collision::CheckCollsion(sf::CircleShape cir, sf::RectangleShape rec)
 {
-	sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin.y - cir.getRadius());
+	sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());
 	sf::Vector2f aabb_half_extents(rec.getSize().x / 2, rec.getSize().y / 2);
 
 	sf::Vector2f aabb_center(rec.getPosition().x + aabb_half_extents.x, rec.getPosition().y + aabb_half_extents.y);
 
 	sf::Vector2f difference = center - aabb_center;
+
+	return true;
 }
 
 //circle vs circle
@@ -53,6 +55,7 @@ bool Collision::CheckCollision(sf::CircleShape cir1, sf::CircleShape cir2)
 	else
 		return false;*/
 
+	return true;
 	
 }
 
