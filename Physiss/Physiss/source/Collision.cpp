@@ -45,10 +45,11 @@ bool Collision::CheckCollision(sf::CircleShape cir1, sf::CircleShape cir2)
 	float r = cir1.getRadius() + cir2.getRadius();
 	r *= r;
 
+	
 	sf::Vector2f center1(cir1.getOrigin().x - cir1.getRadius(), cir1.getOrigin().y - cir1.getRadius());
 	sf::Vector2f center2(cir2.getOrigin().x - cir2.getRadius(), cir2.getOrigin().y - cir2.getRadius());
 
-	/*if (r < (center1.x + center2.x) ^ 2 + (center1.y + center2.y) ^ 2)
+	/*if (r < ((center1.x + center2.x) ^ 2)  + (center1.y + center2.y) ^ 2)
 	{
 		return true;
 	}
