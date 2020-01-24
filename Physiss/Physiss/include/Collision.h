@@ -13,18 +13,10 @@ public:
 	bool CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2);
 
 
-	/*bool CheckCollsion(sf::CircleShape cir, sf::RectangleShape rec)
-	{
-		sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin.y - cir.getRadius());
-		sf::Vector2f aabb_half_extents(rec.getSize().x / 2, rec.getSize().y / 2);
+	bool CheckCollsion(sf::CircleShape cir, sf::RectangleShape rec);
 
-		sf::Vector2f aabb_center( rec.getPosition().x + aabb_half_extents.x, rec.getPosition().y + aabb_half_extents.y) ;
-
-		sf::Vector2f difference = center - aabb_center;
-
-		
-
-	}*/
+	bool CheckCollision(sf::CircleShape cir1, sf::CircleShape cir2);
+	
 };
 
 //TODO: Collsion
