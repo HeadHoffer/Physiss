@@ -29,14 +29,22 @@ bool Collision::CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2)
 //circle vs square 
 bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 {
-	sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());
+	//sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());
 	sf::Vector2f aabb_half_extents(rec.getSize().x / 2, rec.getSize().y / 2);
 
 	sf::Vector2f aabb_center(rec.getPosition().x + aabb_half_extents.x, rec.getPosition().y + aabb_half_extents.y);
 
-	sf::Vector2f difference = center - aabb_center;
+	sf::Vector2f difference = cir.getOrigin() - aabb_center;
+	sf::Vector2f clamped = std::clamp(difference, -aabb_half_extents, aabb_half_extents);
 
-	return true;
+	sf::Vector2f closest = aabb_center + clamped;
+
+	difference = closest - cir.getOrigin();
+
+	return Collision::Distance(difference, difference ) < cir.getRadius();
+
+	//sf::Vector2f difference = center - aabb_center;
+
 }
 
 //circle vs circle
