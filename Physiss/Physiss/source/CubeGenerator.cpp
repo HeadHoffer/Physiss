@@ -22,12 +22,13 @@ sf::RectangleShape CubeGenerator::NewCube() {
 }
 
 sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position) {
-	sf::RectangleShape rect(sf::Vector2f(30, 30));
+	float length = 50;
+	sf::RectangleShape rect(sf::Vector2f(length, length));
 	std::cout << "X: " << position.x << "\n";
 	std::cout << "Y: " << position.y << "\n";
 	//Position fuckery: window positions are actually negative
 	/*rect.setPosition(sf::Vector2f(0 - position.x + 15, 0 - position.y + 15));*/
-	rect.setOrigin(sf::Vector2f(0 - position.x + 15, 0 - position.y + 15));
+	rect.setOrigin(sf::Vector2f(0 - position.x + length / 2, 0 - position.y + length / 2));
 	rect.setFillColor(sf::Color::Cyan);
 	return rect;
 }

@@ -29,22 +29,60 @@ bool Collision::CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2)
 //circle vs square 
 bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 {
-	//sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());
-	sf::Vector2f aabb_half_extents(rec.getSize().x / 2, rec.getSize().y / 2);
+	sf::Vector2f corner1 = rec.getOrigin();
+	sf::Vector2f corner2(rec.getOrigin().x + rec.getSize().x, rec.getOrigin().y);
+	sf::Vector2f corner3(rec.getOrigin().x, rec.getOrigin().y - rec.getSize().y);
+	sf::Vector2f corner4(rec.getOrigin().x + rec.getSize().x, rec.getOrigin().y - rec.getSize().y);
 
-	sf::Vector2f aabb_center(rec.getPosition().x + aabb_half_extents.x, rec.getPosition().y + aabb_half_extents.y);
+	std::vector<sf::Vector2f> corners{ corner1, corner2, corner3, corner4 };
 
-	sf::Vector2f difference = cir.getOrigin() - aabb_center;
-	sf::Vector2f clamped = std::clamp(difference, -aabb_half_extents, aabb_half_extents);
+	float r = cir.getRadius();
 
-	sf::Vector2f closest = aabb_center + clamped;
+	
 
-	difference = closest - cir.getOrigin();
+	for (auto x = corners.begin(); x != corners.end(); x++)
+	{
+		if ( r >= Collision::Distance(*x, cir.getOrigin()))
+		{
+			return true;
+		}
+	}
 
-	return Collision::Distance(difference, difference ) < cir.getRadius();
+	sf::RectangleShape yRec(sf::Vector2f(rec.getSize().x, rec.getSize().y + 2 * r));
+	sf::RectangleShape xRec(sf::Vector2f(rec.getSize().x + 2 * r, rec.getSize().y));
+
+	if (yRec.getOrigin().x + yRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= yRec.getOrigin().x
+		&& yRec.getOrigin().y + yRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= yRec.getOrigin().y)
+	{
+		return true;
+	}
+
+	if (xRec.getOrigin().x + xRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= xRec.getOrigin().x
+		&& xRec.getOrigin().y + xRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= xRec.getOrigin().y)
+	{
+		return true;
+	}
+
+
+	////sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());
+	//sf::Vector2f aabb_half_extents(rec.getSize().x / 2, rec.getSize().y / 2);
+
+	//sf::Vector2f aabb_center(rec.getPosition().x + aabb_half_extents.x, rec.getPosition().y + aabb_half_extents.y);
+
+	//sf::Vector2f difference(cir.getOrigin() - aabb_center);
+	//sf::Vector2f clamped(std::clamp(difference, -aabb_half_extents, aabb_half_extents));
+
+	//sf::Vector2f closest(aabb_center + clamped);
+
+	//rec.
+
+	//difference = closest - cir.getOrigin();
+
+	//return Collision::Distance(difference, difference ) < cir.getRadius();
 
 	//sf::Vector2f difference = center - aabb_center;
 
+	return false;
 }
 
 //circle vs circle
