@@ -44,20 +44,12 @@ int main()
 			}
 		}
 
-		window.clear();
-		//window.draw(shape);
-		for (int i = 0; i < (int)circles.size(); ++i) {
-			window.draw(circles[i]);
-		}
-		for (int i = 0; i < (int)arr.size(); ++i) {
-			window.draw(arr[i]);
-		}
-
 		if ((int)arr.size() > 0) {
 			for (auto x = arr.begin(); x != arr.end(); x++) {
 				for (auto y = arr.begin(); y != arr.end(); y++) {
 					if (x != y && col.CheckCollision(*x, *y))
-						std::cout << "Collision happened\n";
+						//std::cout << "Collision happened\n";
+						continue;
 				}
 			}
 		}
@@ -65,7 +57,8 @@ int main()
 			for (auto z = circles.begin(); z != circles.end(); z++) {
 				for (auto z2 = circles.begin(); z2 != circles.end(); z2++) {
 					if (z != z2 && col.CheckCollision(*z, *z2))
-						std::cout << "Circle collision happened\n";
+						//std::cout << "Circle collision happened\n";
+						continue;
 				}
 			}
 		}
@@ -76,6 +69,13 @@ int main()
 						std::cout << "Circle has met rectangle\n";
 				}
 			}
+		}
+		window.clear();
+		for (int i = 0; i < (int)circles.size(); ++i) {
+			window.draw(circles[i]);
+		}
+		for (int i = 0; i < (int)arr.size(); ++i) {
+			window.draw(arr[i]);
 		}
 
 		window.display();

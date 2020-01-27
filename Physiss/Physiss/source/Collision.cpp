@@ -29,39 +29,54 @@ bool Collision::CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2)
 //circle vs square 
 bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 {
-	sf::Vector2f corner1 = rec.getOrigin();
-	sf::Vector2f corner2(rec.getOrigin().x + rec.getSize().x, rec.getOrigin().y);
-	sf::Vector2f corner3(rec.getOrigin().x, rec.getOrigin().y - rec.getSize().y);
-	sf::Vector2f corner4(rec.getOrigin().x + rec.getSize().x, rec.getOrigin().y - rec.getSize().y);
+
+	//std::cout << "COLLIDER X: " << rec.getOrigin().x << "\n";
+	//std::cout << "COLLIDER Y: " << rec.getOrigin().y << "\n";
+
+	float sizeX = rec.getSize().x;
+	float sizeY = rec.getSize().y;
+	float orX = rec.getOrigin().x;
+	float orY = rec.getOrigin().y;
+
+	sf::Vector2f corner1(sf::Vector2f(orX, orY));
+	sf::Vector2f corner2(sf::Vector2f(orX - sizeX, orY));
+	sf::Vector2f corner3(sf::Vector2f(orX, orY - sizeY));
+	sf::Vector2f corner4(sf::Vector2f(orX - sizeX, orY - sizeY));
+	//std::cout << "CORNER4: " << orX - sizeX << ", " << orY - sizeY << "\n";
 
 	std::vector<sf::Vector2f> corners{ corner1, corner2, corner3, corner4 };
 
 	float r = cir.getRadius();
-
 	
 
 	for (auto x = corners.begin(); x != corners.end(); x++)
 	{
+		std::cout << "DISTANCE: " << Collision::Distance(*x, cir.getOrigin()) << "\n";
 		if ( r >= Collision::Distance(*x, cir.getOrigin()))
 		{
+			std::cout << "Corners work\n";
 			return true;
 		}
 	}
 
-	sf::RectangleShape yRec(sf::Vector2f(rec.getSize().x, rec.getSize().y + 2 * r));
-	sf::RectangleShape xRec(sf::Vector2f(rec.getSize().x + 2 * r, rec.getSize().y));
+	//sf::RectangleShape yRec(sf::Vector2f(rec.getSize().x, rec.getSize().y + 2 * r));
+	//sf::RectangleShape xRec(sf::Vector2f(rec.getSize().x + 2 * r, rec.getSize().y));
+	//yRec.setOrigin(sf::Vector2f(rec.getOrigin().x, rec.getOrigin().y + r));
+	//xRec.setOrigin(sf::Vector2f(rec.getOrigin().x + r, rec.getOrigin().y));
 
-	if (yRec.getOrigin().x + yRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= yRec.getOrigin().x
-		&& yRec.getOrigin().y + yRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= yRec.getOrigin().y)
-	{
-		return true;
-	}
+	//if (yRec.getOrigin().x + yRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= yRec.getOrigin().x
+	//	&& yRec.getOrigin().y + yRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= yRec.getOrigin().y)
+	//{
+	//	std::cout << "YREC WORKS\n";
+	//	return true;
+	//}
 
-	if (xRec.getOrigin().x + xRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= xRec.getOrigin().x
-		&& xRec.getOrigin().y + xRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= xRec.getOrigin().y)
-	{
-		return true;
-	}
+	//if (xRec.getOrigin().x + xRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= xRec.getOrigin().x
+	//	&& xRec.getOrigin().y + xRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= xRec.getOrigin().y)
+	//{
+	//	std::cout << "XREC WORKS\n";
+	//	return true;
+	//}
 
 
 	////sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());
