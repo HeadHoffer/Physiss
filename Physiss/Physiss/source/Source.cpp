@@ -4,6 +4,7 @@
 #include "CubeGenerator.h"
 #include "Collision.h"
 #include <iostream>
+#include <algorithm>
 
 int main()
 {
