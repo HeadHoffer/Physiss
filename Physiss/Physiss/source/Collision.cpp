@@ -27,7 +27,7 @@ bool Collision::CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2)
 
 
 //circle vs square 
-bool Collision::CheckCollsion(sf::CircleShape cir, sf::RectangleShape rec)
+bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 {
 	sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());
 	sf::Vector2f aabb_half_extents(rec.getSize().x / 2, rec.getSize().y / 2);
@@ -43,20 +43,14 @@ bool Collision::CheckCollsion(sf::CircleShape cir, sf::RectangleShape rec)
 bool Collision::CheckCollision(sf::CircleShape cir1, sf::CircleShape cir2)
 {
 	float r = cir1.getRadius() + cir2.getRadius();
-	r *= r;
+	return r >= Collision::Distance(cir1.getOrigin(), cir2.getOrigin());
+}
 
-	
-	sf::Vector2f center1(cir1.getOrigin().x - cir1.getRadius(), cir1.getOrigin().y - cir1.getRadius());
-	sf::Vector2f center2(cir2.getOrigin().x - cir2.getRadius(), cir2.getOrigin().y - cir2.getRadius());
-
-	/*if (r < ((center1.x + center2.x) ^ 2)  + (center1.y + center2.y) ^ 2)
-	{
-		return true;
-	}
-	else
-		return false;*/
-
-	return true;
-	
+float Collision::Distance(sf::Vector2f pos1, sf::Vector2f pos2) {
+	float x = pos1.x - pos2.x;
+	float y = pos1.y - pos2.y;
+	x *= x;
+	y *= y;
+	return sqrtf(x + y);
 }
 

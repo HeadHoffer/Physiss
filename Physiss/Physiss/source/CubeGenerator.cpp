@@ -31,3 +31,12 @@ sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position) {
 	rect.setFillColor(sf::Color::Cyan);
 	return rect;
 }
+
+sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position) {
+	sf::CircleShape circ(30.f);
+	std::cout << "X: " << position.x << "\n";
+	std::cout << "Y: " << position.y << "\n";
+	circ.setOrigin(sf::Vector2f(0 - position.x + 30, 0 - position.y + 30));
+	circ.setFillColor(sf::Color::Green);
+	return circ;
+}

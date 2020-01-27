@@ -10,5 +10,7 @@ public:
 
 	sf::RectangleShape NewCube();
 	sf::RectangleShape NewCube(sf::Vector2i position);
+
+	sf::CircleShape NewCircle(sf::Vector2i position);
 };
 
