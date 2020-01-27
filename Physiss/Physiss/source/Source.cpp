@@ -4,13 +4,12 @@
 #include "CubeGenerator.h"
 #include "Collision.h"
 #include <iostream>
-#include <algorithm>
 
 int main()
 {
 	CubeGenerator cg;
 	Collision col;
-	sf::RenderWindow window(sf::VideoMode(500, 500), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(500, 500), "Sometimes it doesn't just work");
 	std::vector<sf::RectangleShape> arr;
 	std::vector<sf::CircleShape> circles;
 
@@ -34,27 +33,27 @@ int main()
 
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				sf::Vector2i mPos = sf::Mouse::getPosition(window);
-				arr.push_back(cg.NewCube(mPos));
+				sf::RectangleShape newCube = cg.NewCube(mPos);
+				arr.push_back(newCube);
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right) {
 				sf::Vector2i mPos = sf::Mouse::getPosition(window);
-				circles.push_back(cg.NewCircle(mPos));
+				sf::CircleShape newCircle = cg.NewCircle(mPos);
+				circles.push_back(newCircle);
 			}
 		}
 
 		window.clear();
 		//window.draw(shape);
+		for (int i = 0; i < (int)circles.size(); ++i) {
+			window.draw(circles[i]);
+		}
 		for (int i = 0; i < (int)arr.size(); ++i) {
 			window.draw(arr[i]);
 		}
 
-		for (int i = 0; i < (int)circles.size(); ++i) {
-			window.draw(circles[i]);
-		}
-
-		if ((int)arr.size() > 0)
-		{
+		if ((int)arr.size() > 0) {
 			for (auto x = arr.begin(); x != arr.end(); x++) {
 				for (auto y = arr.begin(); y != arr.end(); y++) {
 					if (x != y && col.CheckCollision(*x, *y))
@@ -62,12 +61,19 @@ int main()
 				}
 			}
 		}
-		if ((int)circles.size() > 0) 
-		{
+		if ((int)circles.size() > 0) {
 			for (auto z = circles.begin(); z != circles.end(); z++) {
 				for (auto z2 = circles.begin(); z2 != circles.end(); z2++) {
 					if (z != z2 && col.CheckCollision(*z, *z2))
 						std::cout << "Circle collision happened\n";
+				}
+			}
+		}
+		if ((int)circles.size() > 0 && (int)arr.size() > 0) {
+			for (auto r = arr.begin(); r != arr.end(); r++) {
+				for (auto c = circles.begin(); c != circles.end(); c++) {
+					if (col.CheckCollision(*c, *r))
+						std::cout << "Circle has met rectangle\n";
 				}
 			}
 		}
