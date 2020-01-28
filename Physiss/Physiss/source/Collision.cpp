@@ -47,7 +47,7 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 
 	for (auto x = corners.begin(); x != corners.end(); x++)
 	{
-		std::cout << "DISTANCE: " << Collision::Distance(*x, cir.getOrigin()) << "\n";
+		//std::cout << "DISTANCE: " << Collision::Distance(*x, cir.getOrigin()) << "\n";
 		if ( r >= Collision::Distance(*x, cir.getOrigin()))
 		{
 			std::cout << "Corner hit\n";
@@ -60,8 +60,8 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 	sf::RectangleShape xRec(sf::Vector2f(rec.getSize().x + 2 * r, rec.getSize().y));
 	
 	//Position is negative, therefore origin is origin minus size
-	yRec.setOrigin(sf::Vector2f(rec.getOrigin().x - rec.getSize().x, rec.getOrigin().y - rec.getSize().y + r));
-	xRec.setOrigin(sf::Vector2f(rec.getOrigin().x - rec.getSize().x + r, rec.getOrigin().y - rec.getSize().y));
+	yRec.setOrigin(sf::Vector2f(rec.getOrigin().x - rec.getSize().x + r, rec.getOrigin().y - rec.getSize().y));
+	xRec.setOrigin(sf::Vector2f(rec.getOrigin().x - rec.getSize().x, rec.getOrigin().y - rec.getSize().y + r));
 
 	float cirX = cir.getOrigin().x;
 	float cirY = cir.getOrigin().y;

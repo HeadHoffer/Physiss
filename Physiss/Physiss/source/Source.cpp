@@ -85,11 +85,11 @@ int main()
 		for (int i = 0; i < (int)hitBoxCorners.size(); ++i) {
 			window.draw(hitBoxCorners[i]);
 		}
-		for (int i = 0; i < (int)circles.size(); ++i) {
-			window.draw(circles[i]);
-		}
 		for (int i = 0; i < (int)arr.size(); ++i) {
 			window.draw(arr[i]);
+		}
+		for (int i = 0; i < (int)circles.size(); ++i) {
+			window.draw(circles[i]);
 		}
 
 		window.display();
