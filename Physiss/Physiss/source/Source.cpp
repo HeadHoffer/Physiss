@@ -14,15 +14,13 @@ int main()
 	std::vector<sf::CircleShape> circles;
 
 	float circleWidth = 30.f;
+	float rectHeight = 150;
 	std::vector<sf::RectangleShape> hitBoxes;
 	std::vector<sf::CircleShape> hitBoxCorners;
-
-	//sf::CircleShape shape(100.f);
-	//sf::RectangleShape rec(sf::Vector2f(30,30));
-	//rec.setOrigin(sf::Vector2f(-40, -40));
-	//rec.setFillColor(sf::Color::Red);
-	//shape.setFillColor(sf::Color::Green);
-	//arr.push_back(rec);
+	std::cout << "Give square height: ";
+	std::cin >> rectHeight;
+	std::cout << "\nGive circle radius: ";
+	std::cin >> circleWidth;
 
 	while (window.isOpen())
 	{
@@ -32,12 +30,9 @@ int main()
 			if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 				window.close();
 
-			//if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter)
-			//	arr.push_back(cg.NewCube());
-
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				sf::Vector2i mPos = sf::Mouse::getPosition(window);
-				sf::RectangleShape newCube = cg.NewCube(mPos);
+				sf::RectangleShape newCube = cg.NewCube(mPos, rectHeight);
 				std::vector<sf::CircleShape> corners = cg.CubeHitCircle(newCube, circleWidth);
 				std::vector<sf::RectangleShape> boxes = cg.CubeHitbox(newCube, circleWidth);
 				hitBoxCorners.insert(hitBoxCorners.end(), corners.begin(), corners.end());

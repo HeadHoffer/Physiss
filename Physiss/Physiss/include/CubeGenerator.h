@@ -10,6 +10,8 @@ public:
 
 	sf::RectangleShape NewCube();
 	sf::RectangleShape NewCube(sf::Vector2i position);
+	sf::RectangleShape NewCube(sf::Vector2i position, float height);
+
 	std::vector<sf::RectangleShape> CubeHitbox(sf::RectangleShape rect, float width);
 	std::vector<sf::CircleShape> CubeHitCircle(sf::RectangleShape rect, float width);
 

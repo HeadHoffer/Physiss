@@ -34,6 +34,18 @@ sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position) {
 	return rect;
 }
 
+sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position, float height) {
+	sf::RectangleShape rect(sf::Vector2f(height, height));
+	std::cout << "ORIGINAL X: " << 0 - position.x + height / 2 << "\n";
+	std::cout << "ORIGINAL Y: " << 0 - position.y + height / 2 << "\n";
+	std::cout << "REAL CORNER4: " << 0 - position.x - height / 2 << ", " << 0 - position.y - height / 2 << "\n";
+	//Position fuckery: window positions are actually negative
+	/*rect.setPosition(sf::Vector2f(0 - position.x + 15, 0 - position.y + 15));*/
+	rect.setOrigin(sf::Vector2f(0 - position.x + height / 2, 0 - position.y + height / 2));
+	rect.setFillColor(sf::Color::Cyan);
+	return rect;
+}
+
 sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position) {
 	sf::CircleShape circ(30.f);
 	//std::cout << "X: " << position.x << "\n";
