@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Physics.cpp" />
     <ClCompile Include="source\Collision.cpp" />
     <ClCompile Include="source\CubeGenerator.cpp" />
     <ClCompile Include="source\Source.cpp" />
@@ -130,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\CubeGenerator.h" />
+    <ClInclude Include="Physics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
