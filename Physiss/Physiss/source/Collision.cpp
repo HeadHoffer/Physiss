@@ -59,24 +59,24 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 		}
 	}
 
-	//sf::RectangleShape yRec(sf::Vector2f(rec.getSize().x, rec.getSize().y + 2 * r));
-	//sf::RectangleShape xRec(sf::Vector2f(rec.getSize().x + 2 * r, rec.getSize().y));
-	//yRec.setOrigin(sf::Vector2f(rec.getOrigin().x, rec.getOrigin().y + r));
-	//xRec.setOrigin(sf::Vector2f(rec.getOrigin().x + r, rec.getOrigin().y));
+	sf::RectangleShape yRec(sf::Vector2f(rec.getSize().x, rec.getSize().y + 2 * r));
+	sf::RectangleShape xRec(sf::Vector2f(rec.getSize().x + 2 * r, rec.getSize().y));
+	yRec.setOrigin(sf::Vector2f(rec.getOrigin().x, rec.getOrigin().y + r));
+	xRec.setOrigin(sf::Vector2f(rec.getOrigin().x + r, rec.getOrigin().y));
 
-	//if (yRec.getOrigin().x + yRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= yRec.getOrigin().x
-	//	&& yRec.getOrigin().y + yRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= yRec.getOrigin().y)
-	//{
-	//	std::cout << "YREC WORKS\n";
-	//	return true;
-	//}
+	if (yRec.getOrigin().x + yRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= yRec.getOrigin().x
+		&& yRec.getOrigin().y + yRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= yRec.getOrigin().y)
+	{
+		std::cout << "YREC WORKS\n";
+		return true;
+	}
 
-	//if (xRec.getOrigin().x + xRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= xRec.getOrigin().x
-	//	&& xRec.getOrigin().y + xRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= xRec.getOrigin().y)
-	//{
-	//	std::cout << "XREC WORKS\n";
-	//	return true;
-	//}
+	if (xRec.getOrigin().x + xRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= xRec.getOrigin().x
+		&& xRec.getOrigin().y + xRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= xRec.getOrigin().y)
+	{
+		std::cout << "XREC WORKS\n";
+		return true;
+	}
 
 
 	////sf::Vector2f center(cir.getOrigin().x - cir.getRadius(), cir.getOrigin().y - cir.getRadius());

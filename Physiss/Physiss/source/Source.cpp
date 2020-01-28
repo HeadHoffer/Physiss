@@ -13,6 +13,10 @@ int main()
 	std::vector<sf::RectangleShape> arr;
 	std::vector<sf::CircleShape> circles;
 
+	float circleWidth = 30.f;
+	std::vector<sf::RectangleShape> hitBoxes;
+	std::vector<sf::CircleShape> hitBoxCorners;
+
 	//sf::CircleShape shape(100.f);
 	//sf::RectangleShape rec(sf::Vector2f(30,30));
 	//rec.setOrigin(sf::Vector2f(-40, -40));
@@ -34,12 +38,16 @@ int main()
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				sf::Vector2i mPos = sf::Mouse::getPosition(window);
 				sf::RectangleShape newCube = cg.NewCube(mPos);
+				std::vector<sf::CircleShape> corners = cg.CubeHitCircle(newCube, circleWidth);
+				std::vector<sf::RectangleShape> boxes = cg.CubeHitbox(newCube, circleWidth);
+				hitBoxCorners.insert(hitBoxCorners.end(), corners.begin(), corners.end());
+				hitBoxes.insert(hitBoxes.end(), boxes.begin(), boxes.end());
 				arr.push_back(newCube);
 			}
 
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Right) {
 				sf::Vector2i mPos = sf::Mouse::getPosition(window);
-				sf::CircleShape newCircle = cg.NewCircle(mPos);
+				sf::CircleShape newCircle = cg.NewCircle(mPos, circleWidth);
 				circles.push_back(newCircle);
 			}
 		}
@@ -71,6 +79,12 @@ int main()
 			}
 		}
 		window.clear();
+		for (int i = 0; i < (int)hitBoxes.size(); ++i) {
+			window.draw(hitBoxes[i]);
+		}
+		for (int i = 0; i < (int)hitBoxCorners.size(); ++i) {
+			window.draw(hitBoxCorners[i]);
+		}
 		for (int i = 0; i < (int)circles.size(); ++i) {
 			window.draw(circles[i]);
 		}
