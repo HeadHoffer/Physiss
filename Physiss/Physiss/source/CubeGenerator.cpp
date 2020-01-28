@@ -68,8 +68,8 @@ std::vector <sf::CircleShape> CubeGenerator::CubeHitCircle(sf::RectangleShape re
 
 	float sizeX = rect.getSize().x;
 	float sizeY = rect.getSize().y;
-	float orX = rect.getOrigin().x;
-	float orY = rect.getOrigin().y;
+	float orX = rect.getOrigin().x + width;
+	float orY = rect.getOrigin().y + width;
 
 	sf::Vector2f corner1(sf::Vector2f(orX, orY));
 	sf::Vector2f corner2(sf::Vector2f(orX - sizeX, orY));

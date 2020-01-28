@@ -30,13 +30,15 @@ bool Collision::CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2)
 bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 {
 
+	float r = cir.getRadius();
+
 	//std::cout << "COLLIDER X: " << rec.getOrigin().x << "\n";
 	//std::cout << "COLLIDER Y: " << rec.getOrigin().y << "\n";
 
 	float sizeX = rec.getSize().x;
 	float sizeY = rec.getSize().y;
-	float orX = rec.getOrigin().x;
-	float orY = rec.getOrigin().y;
+	float orX = rec.getOrigin().x + r;
+	float orY = rec.getOrigin().y + r;
 
 	sf::Vector2f corner1(sf::Vector2f(orX, orY));
 	sf::Vector2f corner2(sf::Vector2f(orX - sizeX, orY));
@@ -45,8 +47,6 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 	//std::cout << "CORNER4: " << orX - sizeX << ", " << orY - sizeY << "\n";
 
 	std::vector<sf::Vector2f> corners{ corner1, corner2, corner3, corner4 };
-
-	float r = cir.getRadius();
 	
 
 	for (auto x = corners.begin(); x != corners.end(); x++)
@@ -64,15 +64,15 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 	yRec.setOrigin(sf::Vector2f(rec.getOrigin().x, rec.getOrigin().y + r));
 	xRec.setOrigin(sf::Vector2f(rec.getOrigin().x + r, rec.getOrigin().y));
 
-	if (yRec.getOrigin().x + yRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= yRec.getOrigin().x
-		&& yRec.getOrigin().y + yRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= yRec.getOrigin().y)
+	if (yRec.getOrigin().x + yRec.getSize().x >= cir.getOrigin().x 
+		&& yRec.getOrigin().y + yRec.getSize().y >= cir.getOrigin().y)
 	{
 		std::cout << "YREC WORKS\n";
 		return true;
 	}
 
-	if (xRec.getOrigin().x + xRec.getSize().x >= cir.getOrigin().x && cir.getOrigin().x >= xRec.getOrigin().x
-		&& xRec.getOrigin().y + xRec.getSize().y >= cir.getOrigin().y && cir.getOrigin().y >= xRec.getOrigin().y)
+	if (xRec.getOrigin().x + xRec.getSize().x >= cir.getOrigin().x 
+		&& xRec.getOrigin().y + xRec.getSize().y >= cir.getOrigin().y)
 	{
 		std::cout << "XREC WORKS\n";
 		return true;
