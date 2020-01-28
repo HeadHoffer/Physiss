@@ -22,7 +22,7 @@ sf::RectangleShape CubeGenerator::NewCube() {
 }
 
 sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position) {
-	float length = 150;
+	float length = 200;
 	sf::RectangleShape rect(sf::Vector2f(length, length));
 	std::cout << "ORIGINAL X: " << 0 - position.x + length / 2 << "\n";
 	std::cout << "ORIGINAL Y: " << 0 - position.y + length / 2 << "\n";
