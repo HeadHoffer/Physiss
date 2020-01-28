@@ -41,8 +41,6 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 	//Fuckery because of circle origins
 	float orX = rec.getOrigin().x + r;
 	float orY = rec.getOrigin().y + r;
-	float cirX = cir.getOrigin().x;
-	float cirY = cir.getOrigin().y;
 
 	sf::Vector2f corner1(sf::Vector2f(orX, orY));
 	sf::Vector2f corner2(sf::Vector2f(orX - sizeX, orY));
@@ -63,29 +61,36 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 		}
 	}
 
+
 	sf::RectangleShape yRec(sf::Vector2f(rec.getSize().x, rec.getSize().y + 2 * r));
 	sf::RectangleShape xRec(sf::Vector2f(rec.getSize().x + 2 * r, rec.getSize().y));
 	yRec.setOrigin(sf::Vector2f(rec.getOrigin().x, rec.getOrigin().y + r));
 	xRec.setOrigin(sf::Vector2f(rec.getOrigin().x + r, rec.getOrigin().y));
 	std::cout << "FAKE YREC ORIGIN: X: " << yRec.getOrigin().x << " Y: " << yRec.getOrigin().y << "\n";
 	std::cout << "FAKE XREC ORIGIN: X: " << xRec.getOrigin().x << " Y: " << xRec.getOrigin().y << "\n";
+
+	//This maybe makes things work
+	float cirX = cir.getOrigin().x + rec.getSize().x;
+	float cirY = cir.getOrigin().y + rec.getSize().y;
 	std::cout << "CIRCLE ORIGIN: X: " << cirX << " Y: " << cirY << "\n";
 
 	if (yRec.getOrigin().x + yRec.getSize().x >= cirX
 		&& cirX >= yRec.getOrigin().x
-		&& yRec.getOrigin().y + yRec.getSize().y >= cirY
+		&& yRec.getOrigin().y + yRec.getSize().y >= cirY + r
 		&& cirY >= yRec.getOrigin().y)
 	{
-		std::cout << "YREC WORKS\n";
+		std::cout << "YREC X: " << yRec.getOrigin().x + yRec.getSize().x << "\n";
+		std::cout << "YREC Y: " << yRec.getOrigin().y + yRec.getSize().y << "\n";
 		return true;
 	}
 
-	if (xRec.getOrigin().x + xRec.getSize().x >= cirX
+	if (xRec.getOrigin().x + xRec.getSize().x >= cirX + r
 		&& cirX >= xRec.getOrigin().x
 		&& xRec.getOrigin().y + xRec.getSize().y >= cirY 
 		&& cirY >= xRec.getOrigin().y)
 	{
-		std::cout << "XREC WORKS\n";
+		std::cout << "XREC X: " << xRec.getOrigin().x + xRec.getSize().x << "\n";
+		std::cout << "XREC Y: " << xRec.getOrigin().y + xRec.getSize().y << "\n";
 		return true;
 	}
 
