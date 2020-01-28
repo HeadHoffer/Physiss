@@ -22,7 +22,7 @@ sf::RectangleShape CubeGenerator::NewCube() {
 }
 
 sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position) {
-	float length = 100;
+	float length = 150;
 	sf::RectangleShape rect(sf::Vector2f(length, length));
 	std::cout << "ORIGINAL X: " << 0 - position.x + length / 2 << "\n";
 	std::cout << "ORIGINAL Y: " << 0 - position.y + length / 2 << "\n";
@@ -45,9 +45,9 @@ sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position) {
 
 sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position, float width) {
 	sf::CircleShape circ(width);
-	//std::cout << "X: " << position.x << "\n";
-	//std::cout << "Y: " << position.y << "\n";
-	circ.setOrigin(sf::Vector2f(0 - position.x + 30, 0 - position.y + 30));
+	std::cout << "X: " << 0 - position.x + width << "\n";
+	std::cout << "Y: " << 0 - position.y + width << "\n";
+	circ.setOrigin(sf::Vector2f(0 - position.x + width, 0 - position.y + width));
 	circ.setFillColor(sf::Color::Green);
 	return circ;
 }
@@ -57,6 +57,8 @@ std::vector <sf::RectangleShape> CubeGenerator::CubeHitbox(sf::RectangleShape re
 	sf::RectangleShape xRec(sf::Vector2f(rect.getSize().x + 2 * width, rect.getSize().y));
 	yRec.setOrigin(sf::Vector2f(rect.getOrigin().x, rect.getOrigin().y + width));
 	xRec.setOrigin(sf::Vector2f(rect.getOrigin().x + width, rect.getOrigin().y));
+	std::cout << "REAL YREC ORIGIN: X: " << yRec.getOrigin().x << " Y: " << yRec.getOrigin().y << "\n";
+	std::cout << "REAL XREC ORIGIN: X: " << xRec.getOrigin().x << " Y: " << xRec.getOrigin().y << "\n";
 
 	xRec.setFillColor(sf::Color::Yellow);
 	yRec.setFillColor(sf::Color::Yellow);
