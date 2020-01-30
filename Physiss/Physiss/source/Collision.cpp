@@ -23,11 +23,13 @@ void Collision::HandleCollision(std::vector<sf::RectangleShape> rects, std::vect
 		}
 	}
 	if ((int)circles.size() > 0) {
-		for (auto z = circles.begin(); z != circles.end(); z++) {
-			for (auto z2 = circles.begin(); z2 != circles.end(); z2++) {
-				if (z != z2 && CheckCollision(*z, *z2))
-					std::cout << "Circles collided!\n";
-					//CollisionImpulse(*z, *z2);
+		for (auto &z : circles) {
+			for (auto &z2 : circles) {
+				if (&z != &z2 && CheckCollision(z, z2)) {
+					//std::cout << "Circles collided!\n";
+					//Pointers are fucking awful
+					CollisionImpulse(z, z2);
+				}
 			}
 		}
 	}
@@ -138,9 +140,10 @@ sf::Vector2f Collision::VectorDistance(sf::Vector2f pos1, sf::Vector2f pos2) {
 }
 
 void Collision::CollisionImpulse(sf::CircleShape cir1, sf::CircleShape cir2) {
-	sf::Vector2f r = VectorDistance(cir1.getOrigin(), cir2.getOrigin());
+	sf::Vector2f r = VectorDistance(cir1.getPosition(), cir2.getPosition());
 	std::cout << "Vector: x: " << r.x << " y: " << r.y << "\n";
 	std::cout << "Cir1 position? " << cir1.getPosition().x << ", " << cir1.getPosition().y << "\n";
-	cir1.move(r.x, r.y);
+	std::cout << "Cir2 position? " << cir2.getPosition().x << ", " << cir2.getPosition().y << "\n";
+	cir1.setPosition(r.x, r.y);
 }
 
