@@ -24,24 +24,22 @@ sf::RectangleShape CubeGenerator::NewCube() {
 sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position) {
 	float length = 200;
 	sf::RectangleShape rect(sf::Vector2f(length, length));
-	std::cout << "ORIGINAL X: " << 0 - position.x + length / 2 << "\n";
-	std::cout << "ORIGINAL Y: " << 0 - position.y + length / 2 << "\n";
-	std::cout << "REAL CORNER4: " << 0 - position.x - length / 2 << ", " << 0 - position.y - length / 2 << "\n";
+	std::cout << "ORIGINAL X: " << position.x + length / 2 << "\n";
+	std::cout << "ORIGINAL Y: " << position.y + length / 2 << "\n";
+	std::cout << "REAL CORNER4: " << position.x - length / 2 << ", " << 0 - position.y - length / 2 << "\n";
 	//Position fuckery: window positions are actually negative
 	/*rect.setPosition(sf::Vector2f(0 - position.x + 15, 0 - position.y + 15));*/
-	rect.setOrigin(sf::Vector2f(0 - position.x + length / 2, 0 - position.y + length / 2));
+	rect.setPosition(sf::Vector2f(position.x + length / 2, position.y + length / 2));
 	rect.setFillColor(sf::Color::Cyan);
 	return rect;
 }
 
 sf::RectangleShape CubeGenerator::NewCube(sf::Vector2i position, float height) {
 	sf::RectangleShape rect(sf::Vector2f(height, height));
-	std::cout << "ORIGINAL X: " << 0 - position.x + height / 2 << "\n";
-	std::cout << "ORIGINAL Y: " << 0 - position.y + height / 2 << "\n";
-	std::cout << "REAL CORNER4: " << 0 - position.x - height / 2 << ", " << 0 - position.y - height / 2 << "\n";
-	//Position fuckery: window positions are actually negative
-	/*rect.setPosition(sf::Vector2f(0 - position.x + 15, 0 - position.y + 15));*/
-	rect.setOrigin(sf::Vector2f(0 - position.x + height / 2, 0 - position.y + height / 2));
+	std::cout << "ORIGINAL X: " << position.x - height / 2 << "\n";
+	std::cout << "ORIGINAL Y: " << position.y - height / 2 << "\n";
+	std::cout << "REAL CORNER4: " << position.x + height / 2 << ", " << position.y + height / 2 << "\n";
+	rect.setPosition(sf::Vector2f(position.x - height / 2, position.y - height / 2));
 	rect.setFillColor(sf::Color::Cyan);
 	return rect;
 }
@@ -50,16 +48,16 @@ sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position) {
 	sf::CircleShape circ(30.f);
 	//std::cout << "X: " << position.x << "\n";
 	//std::cout << "Y: " << position.y << "\n";
-	circ.setOrigin(sf::Vector2f(0 - position.x + 30, 0 - position.y + 30));
+	circ.setPosition(sf::Vector2f(position.x - 30, position.y - 30));
 	circ.setFillColor(sf::Color::Green);
 	return circ;
 }
 
 sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position, float width) {
 	sf::CircleShape circ(width);
-	std::cout << "X: " << 0 - position.x + width << "\n";
-	std::cout << "Y: " << 0 - position.y + width << "\n";
-	circ.setOrigin(sf::Vector2f(0 - position.x + width, 0 - position.y + width));
+	std::cout << "X: " << position.x - width << "\n";
+	std::cout << "Y: " << position.y - width << "\n";
+	circ.setPosition(sf::Vector2f(position.x - width, position.y - width));
 	circ.setFillColor(sf::Color::Green);
 	return circ;
 }
@@ -67,10 +65,10 @@ sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position, float width) {
 std::vector <sf::RectangleShape> CubeGenerator::CubeHitbox(sf::RectangleShape rect, float width) {
 	sf::RectangleShape yRec(sf::Vector2f(rect.getSize().x, rect.getSize().y + 2 * width));
 	sf::RectangleShape xRec(sf::Vector2f(rect.getSize().x + 2 * width, rect.getSize().y));
-	yRec.setOrigin(sf::Vector2f(rect.getOrigin().x, rect.getOrigin().y + width));
-	xRec.setOrigin(sf::Vector2f(rect.getOrigin().x + width, rect.getOrigin().y));
-	std::cout << "REAL YREC ORIGIN: X: " << yRec.getOrigin().x << " Y: " << yRec.getOrigin().y << "\n";
-	std::cout << "REAL XREC ORIGIN: X: " << xRec.getOrigin().x << " Y: " << xRec.getOrigin().y << "\n";
+	yRec.setPosition(sf::Vector2f(rect.getPosition().x, rect.getPosition().y - width));
+	xRec.setPosition(sf::Vector2f(rect.getPosition().x - width, rect.getPosition().y));
+	std::cout << "REAL YREC ORIGIN: X: " << yRec.getPosition().x << " Y: " << yRec.getPosition().y << "\n";
+	std::cout << "REAL XREC ORIGIN: X: " << xRec.getPosition().x << " Y: " << xRec.getPosition().y << "\n";
 
 	xRec.setFillColor(sf::Color::Yellow);
 	yRec.setFillColor(sf::Color::Yellow);
@@ -82,18 +80,18 @@ std::vector <sf::CircleShape> CubeGenerator::CubeHitCircle(sf::RectangleShape re
 
 	float sizeX = rect.getSize().x;
 	float sizeY = rect.getSize().y;
-	float orX = rect.getOrigin().x + width;
-	float orY = rect.getOrigin().y + width;
+	float orX = rect.getPosition().x - width;
+	float orY = rect.getPosition().y - width;
 
 	sf::Vector2f corner1(sf::Vector2f(orX, orY));
-	sf::Vector2f corner2(sf::Vector2f(orX - sizeX, orY));
-	sf::Vector2f corner3(sf::Vector2f(orX, orY - sizeY));
-	sf::Vector2f corner4(sf::Vector2f(orX - sizeX, orY - sizeY));
+	sf::Vector2f corner2(sf::Vector2f(orX + sizeX, orY));
+	sf::Vector2f corner3(sf::Vector2f(orX, orY + sizeY));
+	sf::Vector2f corner4(sf::Vector2f(orX + sizeX, orY + sizeY));
 	std::vector<sf::Vector2f> corners{ corner1,corner2,corner3,corner4 };
 
 	for (auto x = corners.begin(); x != corners.end(); x++) {
 		sf::CircleShape circ(width);
-		circ.setOrigin(*x);
+		circ.setPosition(*x);
 		circ.setFillColor(sf::Color::Red);
 		cornerCircles.push_back(circ);
 	}
