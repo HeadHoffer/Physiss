@@ -4,12 +4,13 @@
 class GameObject
 {
 public:
-	GameObject();
+	GameObject(float mass, float friction, float size);
 	~GameObject();
 
-	float mass;
-	float friction;
-	int size;
+private:
+	float _mass;
+	float _friction;
+	int _size;
 
 	sf::RectangleShape rectangle;
 	sf::CircleShape circle;
