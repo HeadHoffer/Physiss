@@ -17,5 +17,6 @@ public:
 
 	sf::CircleShape NewCircle(sf::Vector2i position);
 	sf::CircleShape NewCircle(sf::Vector2i position, float width);
+	sf::CircleShape NewCircle(sf::Vector2f position, float width, sf::Color color);
 };
 

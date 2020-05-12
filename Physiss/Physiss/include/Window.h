@@ -11,7 +11,7 @@ public:
 
 	void RenderWindow();
 
-	float circleWidth = 30.f;
+	float circleWidth = 10.f;
 	float rectHeight = 150;
 
 	sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(500, 500), "Sometimes it doesn't just work");
@@ -19,5 +19,7 @@ public:
 private:
 	void Draw(std::vector<sf::RectangleShape> shapes);
 	void Draw(std::vector<sf::CircleShape> shapes);
+	void Draw(sf::CircleShape circle);
+	void Move(sf::CircleShape *circle);
 };
 

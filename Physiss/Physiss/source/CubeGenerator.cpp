@@ -55,10 +55,17 @@ sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position) {
 
 sf::CircleShape CubeGenerator::NewCircle(sf::Vector2i position, float width) {
 	sf::CircleShape circ(width);
-	std::cout << "X: " << position.x - width << "\n";
-	std::cout << "Y: " << position.y - width << "\n";
 	circ.setPosition(sf::Vector2f(position.x - width, position.y - width));
+	std::cout << "X: " << circ.getPosition().x << "\n";
+	std::cout << "Y: " << circ.getPosition().y << "\n";
 	circ.setFillColor(sf::Color::Green);
+	return circ;
+}
+
+sf::CircleShape CubeGenerator::NewCircle(sf::Vector2f position, float width, sf::Color color) {
+	sf::CircleShape circ(width);
+	circ.setPosition(sf::Vector2f(position.x - width, position.y - width));
+	circ.setFillColor(color);
 	return circ;
 }
 

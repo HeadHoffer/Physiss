@@ -118,6 +118,49 @@ bool Collision::CheckCollision(sf::CircleShape cir, sf::RectangleShape rec)
 	return false;
 }
 
+//WORKING Circle Collision
+void Collision::HandleCollision(sf::CircleShape *cir1, sf::CircleShape *cir2)
+{
+	if(CheckCollision(cir1, cir2))
+		CollisionImpulse(cir1, cir2);
+}
+
+void Collision::CheckPosition(sf::CircleShape *cir)
+{
+	if (!(cir->getPosition().x < 500 && cir->getPosition().x > 0) || !(cir->getPosition().y < 500 && cir->getPosition().y > 0))
+	{
+		//std::cout << "Out of bounds!";
+		MoveToPlayArea(cir);
+	}
+}
+
+bool Collision::CheckCollision(sf::CircleShape* cir1, sf::CircleShape *cir2)
+{
+	float r = cir1->getRadius() + cir2->getRadius();
+	return r >= Distance(cir1->getPosition(), cir2->getPosition());
+}
+
+void Collision::CollisionImpulse(sf::CircleShape *cir1, sf::CircleShape *cir2)
+{
+	sf::Vector2f r = VectorDistance(cir1->getPosition(), cir2->getPosition());
+	cir1->move(r);
+}
+
+void Collision::MoveToMaster(sf::CircleShape *cir, sf::CircleShape *master)
+{
+	sf::Vector2f r = VectorDistance(cir->getPosition(), master->getPosition());
+	float percentage = cir->getRadius() / (cir->getRadius() + master->getRadius());
+	std::cout << percentage << "%\n";
+	cir->move(r);
+}
+
+void Collision::MoveToPlayArea(sf::CircleShape *cir)
+{
+	int randX = rand() % 500;
+	int randY = rand() % 500;
+	cir->setPosition(sf::Vector2f(randX, randY));
+}
+
 //Circle collision
 bool Collision::CheckCollision(sf::CircleShape cir1, sf::CircleShape cir2)
 {
@@ -144,6 +187,6 @@ void Collision::CollisionImpulse(sf::CircleShape cir1, sf::CircleShape cir2) {
 	std::cout << "Vector: x: " << r.x << " y: " << r.y << "\n";
 	std::cout << "Cir1 position? " << cir1.getPosition().x << ", " << cir1.getPosition().y << "\n";
 	std::cout << "Cir2 position? " << cir2.getPosition().x << ", " << cir2.getPosition().y << "\n";
-	cir1.setPosition(r.x, r.y);
+	cir1.move(r.x, r.y);
 }
 

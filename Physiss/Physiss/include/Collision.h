@@ -11,6 +11,16 @@ public:
 	Collision();
 	~Collision();
 
+	void HandleCollision(sf::CircleShape *cir1, sf::CircleShape *cir2);
+
+	bool CheckCollision(sf::CircleShape *cir1, sf::CircleShape *cir2);
+	void CheckPosition(sf::CircleShape *cir);
+	void CollisionImpulse(sf::CircleShape *cir1, sf::CircleShape *cir2);
+
+	void MoveToMaster(sf::CircleShape *cir, sf::CircleShape *master);
+	void MoveToPlayArea(sf::CircleShape *cir);
+
+	//None of these work because pointers are fucking garbage
 	void HandleCollision(std::vector<sf::RectangleShape> rects, std::vector<sf::CircleShape> circles);
 
 	bool CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2);

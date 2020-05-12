@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="source\Collision.cpp" />
     <ClCompile Include="source\CubeGenerator.cpp" />
+    <ClCompile Include="source\GameObject.cpp" />
     <ClCompile Include="source\Physics.cpp" />
     <ClCompile Include="source\Source.cpp" />
     <ClCompile Include="source\Window.cpp" />
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\CubeGenerator.h" />
+    <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\Physics.h" />
     <ClInclude Include="include\Window.h" />
   </ItemGroup>

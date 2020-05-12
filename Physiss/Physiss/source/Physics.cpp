@@ -13,7 +13,7 @@ Physics::~Physics()
 
 float Physics::Velocity(GameObject go)
 {
-	float velocity;
+	float velocity = 0;
 
 	return velocity;
 }
