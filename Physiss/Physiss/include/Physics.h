@@ -15,8 +15,6 @@ public:
 	float Impulse(GameObject go);
 	float Restitution(GameObject go);
 
-	//kullipåaskahomperseseksi
-
 	void ResolveCollision(GameObject go1, GameObject go2);
 
 private:

@@ -4,32 +4,37 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <GameObject.h>
 
-class Collision
+class Collision : GameObject
 {
 public:
 	Collision();
 	~Collision();
 
-	void HandleCollision(sf::CircleShape *cir1, sf::CircleShape *cir2);
+	struct AABB;
+	struct Circle;
 
-	bool CheckCollision(sf::CircleShape *cir1, sf::CircleShape *cir2);
-	void CheckPosition(sf::CircleShape *cir);
-	void CollisionImpulse(sf::CircleShape *cir1, sf::CircleShape *cir2);
+	//New collisions that hopefully work
+	bool AABBvsAABB(AABB a, AABB b);
+	bool CirclevsCircleUnoptimized(Circle a, Circle b);
+	bool CirclevsCircleOptimized(Circle a, Circle b);
 
-	void MoveToMaster(sf::CircleShape *cir, sf::CircleShape *master);
-	void MoveToPlayArea(sf::CircleShape *cir);
+	void ResolveCollision(GameObject a, GameObject b);
 
-	//None of these work because pointers are fucking garbage
-	void HandleCollision(std::vector<sf::RectangleShape> rects, std::vector<sf::CircleShape> circles);
-
-	bool CheckCollision(sf::RectangleShape rec1, sf::RectangleShape rec2);
-	bool CheckCollision(sf::CircleShape cir, sf::RectangleShape rec);
-	bool CheckCollision(sf::CircleShape cir1, sf::CircleShape cir2);
-
-	void CollisionImpulse(sf::CircleShape cir1, sf::CircleShape cir2);
-
+	//Distance
 	float Distance(sf::Vector2f pos1, sf::Vector2f pos2);
 	sf::Vector2f VectorDistance(sf::Vector2f pos1, sf::Vector2f pos2);
-	
+
+	/*******************************************************************/
+
+	//Circleshape collision
+	void HandleCollision(sf::CircleShape* cir1, sf::CircleShape* cir2);
+	bool CheckCollision(sf::CircleShape* cir1, sf::CircleShape* cir2);
+	void CheckPosition(sf::CircleShape* cir);
+	void CollisionImpulse(sf::CircleShape* cir1, sf::CircleShape* cir2);
+
+	//Circleshape positioning
+	void MoveToMaster(sf::CircleShape* cir, sf::CircleShape* master);
+	void MoveToPlayArea(sf::CircleShape* cir);
 };
