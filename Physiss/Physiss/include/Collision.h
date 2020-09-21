@@ -6,7 +6,7 @@
 #include <vector>
 #include <GameObject.h>
 
-class Collision : GameObject
+class Collision
 {
 public:
 	Collision();
