@@ -43,7 +43,7 @@ private:
 	LineSegment* selectedLine = nullptr;
 	bool selectedLineStart = false;
 
-	float gravity = 100.0f;
+	float gravity = 200.0f;
 	float defaultRad = 3.0f;
 	float fLineRadius = 1.0f;
 
@@ -86,9 +86,9 @@ public:
 			AddCircle(rand() % ScreenWidth(), rand() % ScreenHeight(), defaultRad);
 		}
 
-		lines.push_back({ 12.0f, 4.0f, 16.0f, 65.0f, fLineRadius });
-		lines.push_back({ 16.0f, 65.0f, 132.0f, 65.0f, fLineRadius });
-		lines.push_back({ 132.0f, 65.0f, 136.0f, 4.0f, fLineRadius });
+		lines.push_back({ 5.0f, 4.0f, 110.0f, 30.0f, fLineRadius });
+		lines.push_back({ 155.0f, 40.0f, 50.0f, 65.0f, fLineRadius });
+		lines.push_back({ 20.0f, 75.0f, 140.0f, 100.0f, fLineRadius });
 
 		return true;
 	}
@@ -121,8 +121,10 @@ public:
 
 		if (m_mouse[0].bPressed || m_mouse[1].bPressed)
 		{
-			//Check for selected circle
 			selectedCircle = nullptr;
+			selectedLine = nullptr;
+
+			//Check for selected circle
 			for (auto& circle : circles)
 			{
 				if (IsPointInCircle(circle, m_mousePosX, m_mousePosY))
@@ -133,7 +135,6 @@ public:
 			}
 
 			//Check for selected line
-			selectedLine = nullptr;
 			for (auto& line : lines)
 			{
 				if (IsPointInCirclePosition(line.startX, line.startY, line.radius, m_mousePosX, m_mousePosY))
@@ -179,6 +180,13 @@ public:
 			if (selectedCircle == nullptr && selectedLine == nullptr)
 			{
 				AddCircle(m_mousePosX, m_mousePosY, defaultRad);
+			}
+			else if (selectedCircle != nullptr) //Release dragged circle
+			{
+				selectedCircle->velX = 0;
+				selectedCircle->velY = 0;
+				selectedCircle->accX = 0;
+				selectedCircle->accY = 0;
 			}
 
 			selectedCircle = nullptr;
@@ -258,7 +266,7 @@ public:
 
 						float fEdgeLength = fLineX1 * fLineX1 + fLineY1 * fLineY1;
 
-						float t = std::max(0.0f, std::min(fEdgeLength, (fLineX1 * fLineX2 + fLineY1 * fLineY2))) / fEdgeLength;
+						float t = max(0.0f, min(fEdgeLength, (fLineX1 * fLineX2 + fLineY1 * fLineY2))) / fEdgeLength;
 
 						float fClosestPointX = edge.startX + t * fLineX1;
 						float fClosestPointY = edge.startY + t * fLineY1;
@@ -387,7 +395,7 @@ public:
 		//	DrawLine(c.first->posX, c.first->posY, c.second->posX, c.second->posY, PIXEL_SOLID, FG_RED);
 
 		//Draw billiard line
-		if (selectedCircle != nullptr)
+		if (selectedCircle != nullptr && m_mouse[1].bHeld)
 			DrawLine(selectedCircle->posX, selectedCircle->posY, m_mousePosX, m_mousePosY, PIXEL_SOLID, FG_BLUE);
 
 		return true;
