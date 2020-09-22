@@ -43,9 +43,11 @@ private:
 	LineSegment* selectedLine = nullptr;
 	bool selectedLineStart = false;
 
-	float gravity = 200.0f;
-	float defaultRad = 3.0f;
-	float fLineRadius = 1.0f;
+	float gravity = 300.0f;
+	float defaultRad = 8.0f;
+	float fLineRadius = 3.0f;
+
+	int circleAmount = 40;
 
 	/// <summary>
 	/// Spawns a circle in given coordinates
@@ -81,14 +83,14 @@ public:
 
 		//AddCircle(ScreenWidth() * 0.25f, ScreenHeight() * 0.5f, defaultRad);
 		//AddCircle(ScreenWidth() * 0.75f, ScreenHeight() * 0.5f, defaultRad);
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < circleAmount; i++)
 		{
 			AddCircle(rand() % ScreenWidth(), rand() % ScreenHeight(), defaultRad);
 		}
 
-		lines.push_back({ 5.0f, 4.0f, 110.0f, 30.0f, fLineRadius });
-		lines.push_back({ 155.0f, 40.0f, 50.0f, 65.0f, fLineRadius });
-		lines.push_back({ 20.0f, 75.0f, 140.0f, 100.0f, fLineRadius });
+		lines.push_back({ 10.0f, 50.0f, 330.0f, 120.0f, fLineRadius });
+		lines.push_back({ 450.0f, 140.0f, 150.0f, 210.0f, fLineRadius });
+		lines.push_back({ 90.0f, 240.0f, 400.0f, 300.0f, fLineRadius });
 
 		return true;
 	}
@@ -407,7 +409,7 @@ int main()
 	//Window window;
 	//window.RenderWindow();
 	CirclePhysics game;
-	if (game.ConstructConsole(160, 120, 8, 8))
+	if (game.ConstructConsole(480, 360, 2, 2))
 		game.Start();
 	else
 		std::wcout << L"It just doesn't work\n";

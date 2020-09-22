@@ -395,8 +395,8 @@ public:
 		//else
 		//wcscpy_s(cfi.FaceName, L"Lucida Console"); // Everything else :P
 
-		wcscpy_s(cfi.FaceName, L"Liberation Mono");
-		//wcscpy_s(cfi.FaceName, L"Consolas");
+		//wcscpy_s(cfi.FaceName, L"Liberation Mono");
+		wcscpy_s(cfi.FaceName, L"Consolas");
 		if (!SetCurrentConsoleFontEx(m_hConsole, false, &cfi))
 			return Error(L"SetCurrentConsoleFontEx");
 
