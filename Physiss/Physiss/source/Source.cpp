@@ -43,7 +43,12 @@ private:
 	LineSegment* selectedLine = nullptr;
 	bool selectedLineStart = false;
 
+	Circle gravityBall;
+
 	float gravity = 300.0f;
+	float realGravity = gravity;
+	bool noGrav = false;
+
 	float defaultRad = 8.0f;
 	float fLineRadius = 3.0f;
 
@@ -55,7 +60,7 @@ private:
 	/// <param name="x">coordinate</param>
 	/// <param name="y">coordinate</param>
 	/// <param name="r">Circle radius</param>
-	void AddCircle(float x, float y, float r = 5.0f)
+	void AddCircle(float x, float y, float r = 5.0f, bool gravity = false)
 	{
 		Circle c;
 		c.posX = x; c.posY = y;
@@ -65,7 +70,10 @@ private:
 		c.mass = r * 10.0f;
 
 		c.id = circles.size();
-		circles.emplace_back(c);
+		if(!gravity)
+			circles.emplace_back(c);
+		if (gravity)
+			gravityBall = c;
 	}
 
 
@@ -83,6 +91,7 @@ public:
 
 		//AddCircle(ScreenWidth() * 0.25f, ScreenHeight() * 0.5f, defaultRad);
 		//AddCircle(ScreenWidth() * 0.75f, ScreenHeight() * 0.5f, defaultRad);
+		AddCircle(ScreenWidth() - 10, 10, defaultRad, true);
 		for (int i = 0; i < circleAmount; i++)
 		{
 			AddCircle(rand() % ScreenWidth(), rand() % ScreenHeight(), defaultRad);
@@ -126,6 +135,12 @@ public:
 			selectedCircle = nullptr;
 			selectedLine = nullptr;
 
+			//Check for gravityball
+			if (IsPointInCircle(gravityBall, m_mousePosX, m_mousePosY))
+			{
+				selectedCircle = &gravityBall;
+			}
+
 			//Check for selected circle
 			for (auto& circle : circles)
 			{
@@ -156,7 +171,7 @@ public:
 
 		if (m_mouse[0].bHeld)
 		{
-			if (selectedCircle != nullptr) //Dragging circles
+			if (selectedCircle != nullptr && selectedCircle != &gravityBall) //Dragging circles
 			{
 				selectedCircle->posX = m_mousePosX;
 				selectedCircle->posY = m_mousePosY;
@@ -182,6 +197,19 @@ public:
 			if (selectedCircle == nullptr && selectedLine == nullptr)
 			{
 				AddCircle(m_mousePosX, m_mousePosY, defaultRad);
+			}
+			else if (selectedCircle == &gravityBall) //Change gravity
+			{
+				if (noGrav)
+				{
+					realGravity = gravity;
+					noGrav = false;
+				}
+				else
+				{
+					realGravity = 0.0f;
+					noGrav = true;
+				}
 			}
 			else if (selectedCircle != nullptr) //Release dragged circle
 			{
@@ -231,7 +259,7 @@ public:
 
 						//Friction
 						circle.accX = -circle.velX * 0.8f;
-						circle.accY = -circle.velY * 0.8f + gravity;
+						circle.accY = -circle.velY * 0.8f + realGravity;
 
 						//Simulating movement
 						circle.velX += circle.accX * circle.fSimTimeRemaining;
@@ -387,6 +415,9 @@ public:
 			DrawLine((line.startX - nx * line.radius), (line.startY - ny * line.radius), (line.endX - nx * line.radius), (line.endY - ny * line.radius));
 		}
 
+		//Draw gravity ball
+		FillCircle(gravityBall.posX, gravityBall.posY, gravityBall.radius, PIXEL_SOLID, FG_GREEN);
+
 		//Draw circle wireframes
 		for (auto circle : circles)
 			//DrawWireFrameModel(modelCircle, circle.posX, circle.posY, atan2f(circle.velY, circle.velX), circle.radius, FG_WHITE);
@@ -397,7 +428,7 @@ public:
 		//	DrawLine(c.first->posX, c.first->posY, c.second->posX, c.second->posY, PIXEL_SOLID, FG_RED);
 
 		//Draw billiard line
-		if (selectedCircle != nullptr && m_mouse[1].bHeld)
+		if (selectedCircle != nullptr && selectedCircle != &gravityBall && m_mouse[1].bHeld)
 			DrawLine(selectedCircle->posX, selectedCircle->posY, m_mousePosX, m_mousePosY, PIXEL_SOLID, FG_BLUE);
 
 		return true;
