@@ -1,4 +1,4 @@
-#Physiss & Graffiss
+# Physiss & Graffiss
 - Note that this program doesn't seem to work well on Windows 7, Windows 10 is recommended for this crap
 
 # HOW TO PLAY:
